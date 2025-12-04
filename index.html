@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI工具导航平台（内部测试版）</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 30px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #2c3e50;
+            font-size: 2.8rem;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, #3498db, #8e44ad);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .subtitle {
+            color: #7f8c8d;
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+        
+        .tool-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border-left: 5px solid #3498db;
+        }
+        
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+        
+        .tool-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #3498db;
+        }
+        
+        .tool-title {
+            font-size: 1.5rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .tool-desc {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            min-height: 60px;
+        }
+        
+        .tool-links {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            color: white;
+        }
+        
+        .btn-secondary {
+            background: #ecf0f1;
+            color: #2c3e50;
+            border: 1px solid #ddd;
+        }
+        
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+        }
+        
+        .status-active {
+            background: #d5f4e6;
+            color: #27ae60;
+        }
+        
+        .status-testing {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            padding: 25px;
+            color: #7f8c8d;
+            border-top: 1px solid #eee;
+            font-size: 0.95rem;
+        }
+        
+        .quick-access {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 40px 0;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+        
+        @media (max-width: 768px) {
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .container {
+                padding: 15px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-robot"></i> AI工具导航平台</h1>
+            <p class="subtitle">
+                内部测试版 | 整合所有AI辅助工具，一站式访问入口<br>
+                <small>最后更新：2024年1月 | 使用个人账号测试搭建</small>
+            </p>
+        </header>
+
+        <div class="quick-access">
+            <h3><i class="fas fa-bolt"></i> 快捷访问区</h3>
+            <div class="tool-links" style="margin-top: 15px;">
+                <a href="#coze-assistant" class="btn btn-primary">
+                    <i class="fas fa-comments"></i> AI对话助手
+                </a>
+                <a href="#prompt-generator" class="btn btn-secondary">
+                    <i class="fas fa-magic"></i> Prompt生成器
+                </a>
+                <a href="#budget-tool" class="btn btn-secondary">
+                    <i class="fas fa-calculator"></i> 预算报价工具
+                </a>
+            </div>
+        </div>
+
+        <div class="tools-grid">
+            <!-- 工具1：AI对话助手 -->
+            <div class="tool-card" id="coze-assistant">
+                <div class="tool-icon">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <span class="status-badge status-active">正常运行</span>
+                <h3 class="tool-title">AI对话助手</h3>
+                <p class="tool-desc">
+                    基于Coze平台搭建的通用AI助手，可回答各种问题、协助写作、生成创意内容等。
+                </p>
+                <div class="tool-links">
+                    <a href="https://coze.cn" target="_blank" class="btn btn-primary">
+                        <i class="fas fa-external-link-alt"></i> 访问Coze平台
+                    </a>
+                    <a href="#usage-guide" class="btn btn-secondary">
+                        <i class="fas fa-book"></i> 使用指南
+                    </a>
+                </div>
+            </div>
+
+            <!-- 工具2：Prompt生成器 -->
+            <div class="tool-card" id="prompt-generator">
+                <div class="tool-icon">
+                    <i class="fas fa-magic"></i>
+                </div>
+                <span class="status-badge status-testing">测试中</span>
+                <h3 class="tool-title">岗位专属Prompt生成器</h3>
+                <p class="tool-desc">
+                    通过简单问答，为你生成适配岗位的专属AI提示词，无门槛使用。
+                </p>
+                <div class="tool-links">
+                    <a href="#" onclick="alert('此功能需集成Coze机器人，正在开发中'); return false;" class="btn btn-primary">
+                        <i class="fas fa-play"></i> 开始生成
+                    </a>
+                    <a href="prompt-templates.html" class="btn btn-secondary">
+                        <i class="fas fa-file-alt"></i> 模板库
+                    </a>
+                </div>
+            </div>
+
+            <!-- 工具3：预算报价工具 -->
+            <div class="tool-card" id="budget-tool">
+                <div class="tool-icon">
+                    <i class="fas fa-calculator"></i>
+                </div>
+                <span class="status-badge status-active">可用</span>
+                <h3 class="tool-title">AI预算报价助手</h3>
+                <p class="tool-desc">
+                    输入项目信息，自动生成详细预算报价单，支持多种展览/活动类型。
+                </p>
+                <div class="tool-links">
+                    <a href="budget-form.html" class="btn btn-primary">
+                        <i class="fas fa-edit"></i> 填写报价单
+                    </a>
+                    <a href="https://docs.qq.com/sheet/DUXZYVXZJY1hkc0JF" target="_blank" class="btn btn-secondary">
+                        <i class="fas fa-history"></i> 历史记录
+                    </a>
+                </div>
+            </div>
+
+            <!-- 工具4：策划助手 -->
+            <div class="tool-card">
+                <div class="tool-icon">
+                    <i class="fas fa-lightbulb"></i>
+                </div>
+                <span class="status-badge status-testing">筹备中</span>
+                <h3 class="tool-title">活动策划助手</h3>
+                <p class="tool-desc">
+                    快速生成活动策划方案框架、执行时间表、物料清单等。
+                </p>
+                <div class="tool-links">
+                    <a href="#" class="btn btn-secondary" onclick="alert('功能开发中，预计2周后上线'); return false;">
+                        <i class="fas fa-clock"></i> 即将上线
+                    </a>
+                </div>
+            </div>
+
+            <!-- 工具5：内容生成 -->
+            <div class="tool-card">
+                <div class="tool-icon">
+                    <i class="fas fa-pen-fancy"></i>
+                </div>
+                <span class="status-badge status-active">可用</span>
+                <h3 class="tool-title">内容生成中心</h3>
+                <p class="tool-desc">
+                    一键生成招商文案、推文、新闻稿、邮件模板等各类文案。
+                </p>
+                <div class="tool-links">
+                    <a href="content-generator.html" class="btn btn-primary">
+                        <i class="fas fa-feather-alt"></i> 开始创作
+                    </a>
+                    <a href="templates/" class="btn btn-secondary">
+                        <i class="fas fa-folder"></i> 模板库
+                    </a>
+                </div>
+            </div>
+
+            <!-- 工具6：使用教程 -->
+            <div class="tool-card" id="usage-guide">
+                <div class="tool-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <span class="status-badge status-active">必读</span>
+                <h3 class="tool-title">使用指南与教程</h3>
+                <p class="tool-desc">
+                    新手入门教程、常见问题解答、最佳实践案例分享。
+                </p>
+                <div class="tool-links">
+                    <a href="guide.html" class="btn btn-primary">
+                        <i class="fas fa-book-open"></i> 查看指南
+                    </a>
+                    <a href="faq.html" class="btn btn-secondary">
+                        <i class="fas fa-question-circle"></i> 常见问题
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="quick-access" style="margin-top: 50px;">
+            <h3><i class="fas fa-tools"></i> 开发与维护</h3>
+            <div class="tool-links" style="margin-top: 15px;">
+                <a href="https://github.com/your-username/ai-tools-portal" target="_blank" class="btn btn-secondary">
+                    <i class="fab fa-github"></i> 项目源码
+                </a>
+                <a href="admin.html" class="btn btn-secondary">
+                    <i class="fas fa-cog"></i> 管理后台
+                </a>
+                <a href="feedback.html" class="btn btn-secondary">
+                    <i class="fas fa-comment-dots"></i> 反馈建议
+                </a>
+            </div>
+        </div>
+
+        <footer>
+            <p>
+                <strong>AI工具导航平台（内部测试版）</strong><br>
+                仅供内部测试使用 | 数据仅保存在本地浏览器<br>
+                技术支持：技术对接专员 | 反馈邮箱：ai-support@example.com<br>
+                <small>© 2024 公司名称（测试环境） | 使用个人账号搭建</small>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // 简单页面交互
+        document.addEventListener('DOMContentLoaded', function() {
+            // 为所有按钮添加点击效果
+            document.querySelectorAll('.btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    // 如果不是外部链接，阻止默认行为（演示用）
+                    if(!this.href || this.href.includes('#')) {
+                        console.log('点击了：', this.textContent);
+                    }
+                });
+            });
+
+            // 显示当前时间
+            const timeElement = document.createElement('div');
+            timeElement.style.cssText = 'text-align:center; margin-top:10px; color:#7f8c8d; font-size:0.9rem;';
+            timeElement.innerHTML = `页面加载时间：${new Date().toLocaleString()}`;
+            document.querySelector('footer').appendChild(timeElement);
+        });
+    </script>
+</body>
+</html>
