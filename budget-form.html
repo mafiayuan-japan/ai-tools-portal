@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>预算报价表单 - AI工具导航平台</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f7fa;
+        }
+        .form-container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+        }
+        .result {
+            margin-top: 30px;
+            padding: 20px;
+            background: #e8f4fc;
+            border-radius: 5px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" style="color: #3498db; text-decoration: none;">← 返回首页</a>
+    
+    <div class="form-container">
+        <h2>💰 AI预算报价生成器</h2>
+        <p>填写以下信息，自动生成预算报价单：</p>
+        
+        <label>项目类型：</label>
+        <select id="projectType">
+            <option>展览搭建</option>
+            <option>活动执行</option>
+            <option>会议策划</option>
+            <option>其他</option>
+        </select>
+        
+        <label>项目面积/规模：</label>
+        <input type="text" id="projectSize" placeholder="例如：100㎡">
+        
+        <label>项目地点：</label>
+        <input type="text" id="projectLocation" placeholder="例如：上海国家会展中心">
+        
+        <label>特殊要求：</label>
+        <textarea id="specialRequirement" rows="3" placeholder="需要特殊材料、多媒体设备、快速搭建等"></textarea>
+        
+        <button onclick="generateBudget()">生成预算报价</button>
+        
+        <div class="result" id="result">
+            <h3>生成的预算报价：</h3>
+            <div id="output"></div>
+            <button onclick="copyToClipboard()" style="background: #27ae60; margin-top: 10px;">复制到剪贴板</button>
+        </div>
+    </div>
+
+    <script>
+        function generateBudget() {
+            const type = document.getElementById('projectType').value;
+            const size = document.getElementById('projectSize').value;
+            const location = document.getElementById('projectLocation').value;
+            const requirement = document.getElementById('specialRequirement').value;
+            
+            // 模拟AI生成结果（实际应调用API）
+            const result = `
+            <strong>${type}预算报价单</strong><br><br>
+            <strong>项目信息：</strong><br>
+            - 项目类型：${type}<br>
+            - 规模：${size}<br>
+            - 地点：${location}<br>
+            - 特殊要求：${requirement || '无'}<br><br>
+            
+            <strong>预算明细：</strong><br>
+            1. 基础搭建费用：¥20,000-30,000<br>
+            2. 材料费用：¥8,000-15,000<br>
+            3. 人工费用：¥12,000-18,000<br>
+            4. 运输费用：¥5,000-8,000<br>
+            5. 其他杂费：¥3,000-5,000<br><br>
+            
+            <strong>总计：</strong> ¥48,000-76,000（仅供参考）<br><br>
+            
+            <em>注：此为AI初步估算，具体报价需现场勘测后确定。</em>
+            `;
+            
+            document.getElementById('output').innerHTML = result;
+            document.getElementById('result').style.display = 'block';
+        }
+        
+        function copyToClipboard() {
+            const text = document.getElementById('output').innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                alert('已复制到剪贴板！');
+            });
+        }
+    </script>
+</body>
+</html>
